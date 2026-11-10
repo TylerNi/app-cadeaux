@@ -9,9 +9,9 @@ procédure habituelle pour les apps du serveur.
 
 ## 1. Données
 
-Crée un dataset dédié (par exemple `/mnt/tank/app-cadeaux`) et note son chemin : c'est la valeur de
-`DATA_PATH`, monté sur `/data` dans le conteneur. L'app n'y écrit qu'un seul fichier, `app.db` (et
-ses compagnons `app.db-wal` et `app.db-shm`).
+`DATA_PATH` est un dossier de l'hôte (par exemple `/mnt/tank/app-cadeaux`), monté sur `/data` dans
+le conteneur. Docker le crée au premier déploiement s'il n'existe pas : rien à préparer. L'app n'y
+écrit qu'un seul fichier, `app.db` (et ses compagnons `app.db-wal` et `app.db-shm`).
 
 ## 2. Déployer dans Portainer
 
@@ -22,7 +22,7 @@ ses compagnons `app.db-wal` et `app.db-shm`).
 | Variable | Exemple | Rôle |
 |---|---|---|
 | `APP_PORT` | `8080` | Port publié sur l'hôte |
-| `DATA_PATH` | `/mnt/tank/app-cadeaux` | Dataset monté sur `/data` |
+| `DATA_PATH` | `/mnt/tank/app-cadeaux` | Dossier monté sur `/data` |
 
 4. Deploy the stack.
 
@@ -55,7 +55,7 @@ Coucou ! Voici notre app pour les listes de cadeaux : https://cadeaux.exemple.co
 
 ## 5. Sauvegarde
 
-Tout est dans `app.db` : un instantané ou une sauvegarde du dataset suffit.
+Tout est dans `app.db` : une sauvegarde de ce dossier suffit.
 
 ## 6. Développement local
 

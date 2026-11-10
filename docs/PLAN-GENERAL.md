@@ -718,12 +718,12 @@ Fait par l'agent principal avec Tyler, après la fusion de T6, selon la procédu
 pour ses apps. Les adresses et les chemins réels sont dans la mémoire du projet, pas dans ce dépôt
 public. Rien de tout ça n'est écrit par une tâche.
 
-1. Dataset dédié sur le TrueNAS, monté sur `/data`.
-2. Sa tâche de sauvegarde hors site, comme pour chaque app.
-3. Stack Portainer `app-cadeaux` collée depuis `docker-compose.yml`, sur un port hôte libre.
-4. Paquet GHCR `app-cadeaux` rendu public (sinon Portainer ne peut pas le tirer).
-5. Route du tunnel Cloudflare vers ce port.
-6. Mise à jour de la documentation du serveur.
+1. Un dossier de l'hôte monté sur `/data`, créé par Docker au premier déploiement : **pas de dataset
+   à créer** (Tyler, 2026-11-10).
+2. Stack Portainer `app-cadeaux` collée depuis `docker-compose.yml`, sur un port hôte libre.
+3. Paquet GHCR `app-cadeaux` rendu public (sinon Portainer ne peut pas le tirer).
+4. Route du tunnel Cloudflare vers ce port.
+5. Mise à jour de la documentation du serveur.
 
 ## 15. Avancement
 

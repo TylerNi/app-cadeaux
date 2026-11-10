@@ -29,3 +29,7 @@ public.
 
 Compris par l'agent principal comme : aucun secret à fournir au déploiement, ni `ADMIN_PASSWORD`
 ni `SESSION_SECRET`. Le mode aide s'ouvre sans mot de passe, en tapant `/admin` puis « Entrer ».
+
+> non je veux pas avoir a crer de datasets pour les apps dans portainer
+
+Les données vont donc dans un simple dossier de l'hôte, que Docker crée au premier déploiement.
