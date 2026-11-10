@@ -52,15 +52,18 @@ que tapées (pour réafficher le formulaire). Règles et messages exacts : §9.2
 l'ordre :
 
 1. Vide → `null`.
-2. Ne commence pas par `http://` ni `https://` (sans tenir compte des majuscules) → préfixer
-   `https://`.
+2. Le texte contient une adresse `http://` ou `https://` (sans tenir compte des majuscules) → on ne
+   garde que la première, jusqu'au premier espace (sur iPhone, *Partager › Copier* depuis une app
+   colle souvent une phrase avec le lien dedans).
+   Sinon, s'il ne commence pas par `http://` ni `https://` → préfixer `https://`.
 3. `new URL()` qui lève une erreur, protocole autre que `http:`/`https:`, nom d'hôte sans point, ou
    plus de 2000 caractères → erreur.
 4. Sinon → `url.href`.
 
 Cas à vérifier : `amazon.ca/dp/B0123` → `https://amazon.ca/dp/B0123` ; `HTTPS://Exemple.com/a` →
 accepté ; `www.canadiantire.ca/fr/p/123` → accepté ; `javascript:alert(1)` → refusé ;
-`bonjour` → refusé ; `ftp://exemple.com` → refusé.
+`bonjour` → refusé ; `ftp://exemple.com` → refusé ;
+`Regarde ça sur Amazon : https://a.co/d/abc123 super idée` → `https://a.co/d/abc123`.
 
 ### 2. `GET /list/:id`
 
@@ -192,7 +195,7 @@ navigateur.
 
 8. Titre vide → « Écris au moins ce que c'est. », les précisions et le lien tapés sont conservés.
    Titre de 151 caractères envoyé à la main (sans `maxlength`) → message de longueur.
-9. Les six cas de lien du §1 donnent le résultat attendu ; le bouton affiche « Voir sur amazon.ca »
+9. Les sept cas de lien du §1 donnent le résultat attendu ; le bouton affiche « Voir sur amazon.ca »
    pour `https://www.amazon.ca/…`.
 10. Titre `<script>alert(1)</script>` → affiché comme du texte, rien ne s'exécute.
 11. Deux `POST` identiques à moins de 10 secondes → un seul élément ; le même titre 11 secondes plus
