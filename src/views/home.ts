@@ -21,10 +21,10 @@ export function whoPage(viewer: Viewer, members: Member[]): Html {
     title: 'Qui es-tu ?',
     viewer,
     back: viewer.member ? undefined : null,
-    body: html`<p>Appuie sur ton nom.</p>
-${members.length === 0
-  ? emptyState("Personne n'est encore inscrit. Demande à Tyler de t'ajouter.")
-  : memberGrid(members.map((member) => memberTile(member, `/who/${member.id}`, null)))}`,
+    body: members.length === 0
+      ? emptyState("Personne n'est encore inscrit. Demande à Tyler de t'ajouter.")
+      : html`<p>Appuie sur ton nom.</p>
+${memberGrid(members.map((member) => memberTile(member, `/who/${member.id}`, null)))}`,
   });
 }
 
@@ -48,7 +48,7 @@ export function homePage(viewer: Viewer, me: Member, others: Member[], wishCount
 <p>${wishSentence(wishCounts.get(me.id) ?? 0)}</p>
 ${section(
   'Les listes de la famille',
-  'Appuie sur un nom pour voir sa liste.',
+  others.length === 0 ? null : 'Appuie sur un nom pour voir sa liste.',
   others.length === 0
     ? emptyState("Personne d'autre n'est encore inscrit.")
     : memberGrid(others.map((member) => memberTile(member, `/list/${member.id}`, wishCaption(wishCounts.get(member.id) ?? 0)))),
