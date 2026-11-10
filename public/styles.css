@@ -214,6 +214,7 @@ button:focus {
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(9rem, 100%), 1fr));
   grid-gap: 0.7059rem;
   gap: 0.7059rem;
   margin: 0 0 1rem;
@@ -224,6 +225,7 @@ button:focus {
 @media (max-width: 27.375em) {
   .grid {
     grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(7.5rem, 100%), 1fr));
   }
 }
 

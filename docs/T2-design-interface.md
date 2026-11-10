@@ -50,7 +50,8 @@ Tout le reste de `src/` (y compris `html.ts`, `types.ts`, les routes et les vues
   Tout le style vit dans `public/styles.css`.
 - **Compatibilité Safari iOS 12 / Chrome Android 7** (§8.11). Interdits dans le CSS : `gap` sur un
   conteneur flex, `dvh`/`svh`/`lvh`, `:has()`, `:is()`, `:where()`, `aspect-ratio`, `clamp()`,
-  `min()`/`max()`, `inset`, la syntaxe de couleur `rgb(r g b / a)`, les couleurs `#rrggbbaa`.
+  `max()`, `inset`, `min()` (sauf dans une grille, précédé d'une déclaration de repli : Safari le
+  connaît depuis la 11.1), la syntaxe de couleur `rgb(r g b / a)`, les couleurs `#rrggbbaa`.
   Permis : grid (avec `grid-gap` **et** `gap` pour les vieux Safari), flexbox avec des marges,
   variables CSS, `env(safe-area-inset-*)`.
 - Police système uniquement : `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,

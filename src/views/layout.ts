@@ -13,14 +13,19 @@ export interface PageOptions {
   body: Html;
 }
 
+function frenchSpaces(text: string): string {
+  return text.replace(/ ([?!:;»])/g, ' $1').replace(/« /g, '« ');
+}
+
 export function page(options: PageOptions): Html {
   const back = options.back === undefined ? { href: '/', label: "Retour à l'accueil" } : options.back;
+  const title = frenchSpaces(options.title);
   return html`<!doctype html>
 <html lang="fr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${options.title} · ${APP_NAME}</title>
+<title>${title} · ${APP_NAME}</title>
 <link rel="stylesheet" href="/styles.css">
 <link rel="icon" href="/icons/icon-32.png" type="image/png">
 <link rel="apple-touch-icon" href="/icons/icon-180.png">
@@ -33,7 +38,7 @@ export function page(options: PageOptions): Html {
 <header class="top"><a href="/">🎁 ${APP_NAME}</a></header>
 <main class="main">
 ${back && secondaryLink(back.href, `← ${back.label}`)}
-<h1>${options.title}</h1>
+<h1>${title}</h1>
 ${options.notice}
 ${options.body}
 </main>
