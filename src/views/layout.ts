@@ -1,7 +1,7 @@
 import { html } from '../html.js';
 import type { Html } from '../html.js';
 import type { Viewer } from '../types.js';
-import { primaryLink } from './ui.js';
+import { primaryLink, secondaryLink } from './ui.js';
 
 const APP_NAME = 'Cadeaux de la famille';
 
@@ -22,16 +22,22 @@ export function page(options: PageOptions): Html {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${options.title} · ${APP_NAME}</title>
 <link rel="stylesheet" href="/styles.css">
+<link rel="icon" href="/icons/icon-32.png" type="image/png">
+<link rel="apple-touch-icon" href="/icons/icon-180.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#1e5c3a">
+<meta name="apple-mobile-web-app-title" content="Cadeaux">
+<meta name="format-detection" content="telephone=no">
 </head>
 <body>
-<header><a href="/">${APP_NAME}</a></header>
-<main>
-${back && html`<p><a href="${back.href}">← ${back.label}</a></p>`}
+<header class="top"><a href="/">🎁 ${APP_NAME}</a></header>
+<main class="main">
+${back && secondaryLink(back.href, `← ${back.label}`)}
 <h1>${options.title}</h1>
 ${options.notice}
 ${options.body}
 </main>
-${options.viewer.member && html`<footer><p>Tu es ${options.viewer.member.name}.</p></footer>`}
+${options.viewer.member && html`<footer class="foot"><p>Tu es ${options.viewer.member.name}${!options.viewer.member.name.endsWith('.') && '.'}</p></footer>`}
 </body>
 </html>
 `;

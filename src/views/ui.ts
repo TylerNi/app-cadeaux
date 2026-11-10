@@ -16,42 +16,56 @@ function domainOf(url: string): string {
   return new URL(url).hostname.replace(/^www\./, '');
 }
 
+function colorClass(member: Member): string {
+  return `c${member.id % 8}`;
+}
+
+function describedBy(id: string, hint: string | null, error: string | null): Html | null {
+  const ids = [error !== null ? `${id}-error` : '', hint !== null ? `${id}-hint` : ''].join(' ').trim();
+  return ids === '' ? null : html` aria-describedby="${ids}"`;
+}
+
+function fieldNotes(id: string, hint: string | null, error: string | null): Html {
+  return html`${error !== null && html`<p class="error" id="${id}-error">⚠ ${error}</p>`}
+${hint !== null && html`<p class="hint" id="${id}-hint">${hint}</p>`}`;
+}
+
 export function primaryLink(href: string, label: string): Html {
-  return html`<p><a href="${href}">${label}</a></p>`;
+  return html`<a class="btn btn-primary" href="${href}">${label}</a>`;
 }
 
 export function secondaryLink(href: string, label: string): Html {
-  return html`<p><a href="${href}">${label}</a></p>`;
+  return html`<a class="btn btn-secondary" href="${href}">${label}</a>`;
 }
 
 export function postButton(action: string, label: string, variant: 'primary' | 'secondary' | 'danger'): Html {
-  return html`<form method="post" action="${action}"><button type="submit">${label}</button></form>`;
+  return html`<form class="post" method="post" action="${action}"><button class="btn btn-${variant}" type="submit">${label}</button></form>`;
 }
 
 export function actionRow(buttons: Html[]): Html {
-  return html`<div>${buttons}</div>`;
+  return html`<div class="row">${buttons}</div>`;
 }
 
 export function memberTile(member: Member, href: string, caption: string | null): Html {
-  return html`<a href="${href}"><span>${member.name.charAt(0).toUpperCase()}</span> <strong>${member.name}</strong>${caption !== null && html`<br><span>${caption}</span>`}</a>`;
+  return html`<a class="tile" href="${href}"><span class="dot ${colorClass(member)}" aria-hidden="true">${member.name.charAt(0).toUpperCase()}</span><span class="tile-name">${member.name}</span>${caption !== null && html`<span class="tile-caption">${caption}</span>`}</a>`;
 }
 
 export function memberGrid(tiles: Html[]): Html {
-  return html`<ul>${tiles.map((tile) => html`<li>${tile}</li>`)}</ul>`;
+  return html`<ul class="grid">${tiles.map((tile) => html`<li>${tile}</li>`)}</ul>`;
 }
 
 export function itemCard(item: Item, options: { actions: Html | null; showAuthor: boolean }): Html {
-  return html`<article id="item-${item.id}">
+  return html`<article class="card item" id="item-${item.id}">
 <h3>${item.title}</h3>
-${item.details !== null && html`<p>${item.details.split('\n').map((line, index) => html`${index > 0 && html`<br>`}${line}`)}</p>`}
-${item.url !== null && html`<p><a href="${item.url}" target="_blank" rel="noopener noreferrer">Voir sur ${domainOf(item.url)}</a></p>`}
-${options.showAuthor && item.authorName !== null && html`<p>Proposée par ${item.authorName}</p>`}
+${item.details !== null && html`<p class="details">${item.details}</p>`}
+${item.url !== null && html`<a class="btn btn-secondary" href="${item.url}" target="_blank" rel="noopener noreferrer">Voir sur ${domainOf(item.url)}</a>`}
+${options.showAuthor && item.authorName !== null && html`<p class="author">Proposée par ${item.authorName}</p>`}
 ${options.actions}
 </article>`;
 }
 
 export function card(options: { title: string; text: string | null; actions: Html | null }): Html {
-  return html`<article>
+  return html`<article class="card">
 <h3>${options.title}</h3>
 ${options.text !== null && html`<p>${options.text}</p>`}
 ${options.actions}
@@ -59,7 +73,7 @@ ${options.actions}
 }
 
 export function section(title: string, intro: string | null, content: Html): Html {
-  return html`<section>
+  return html`<section class="section">
 <h2>${title}</h2>
 ${intro !== null && html`<p>${intro}</p>`}
 ${content}
@@ -67,7 +81,7 @@ ${content}
 }
 
 export function notice(text: string, tone: 'success' | 'info' | 'help'): Html {
-  return html`<p><strong>${text}</strong></p>`;
+  return html`<p class="notice notice-${tone}">${text}</p>`;
 }
 
 export function doneNotice(code: unknown): Html | null {
@@ -76,7 +90,7 @@ export function doneNotice(code: unknown): Html | null {
 }
 
 export function emptyState(text: string): Html {
-  return html`<p>${text}</p>`;
+  return html`<p class="empty">${text}</p>`;
 }
 
 export function form(options: {
@@ -86,10 +100,10 @@ export function form(options: {
   cancelHref: string | null;
   cancelLabel?: string;
 }): Html {
-  return html`<form method="post" action="${options.action}">
+  return html`<form class="form" method="post" action="${options.action}">
 ${options.fields}
-<p><button type="submit">${options.submitLabel}</button></p>
-${options.cancelHref !== null && html`<p><a href="${options.cancelHref}">${options.cancelLabel ?? 'Annuler'}</a></p>`}
+<button class="btn btn-primary" type="submit">${options.submitLabel}</button>
+${options.cancelHref !== null && secondaryLink(options.cancelHref, options.cancelLabel ?? 'Annuler')}
 </form>`;
 }
 
@@ -105,12 +119,12 @@ export function textField(options: {
   autocomplete?: string;
 }): Html {
   const id = `field-${options.name}`;
-  return html`<p>
-<label for="${id}">${options.label}</label><br>
-<input id="${id}" name="${options.name}" type="${options.type ?? 'text'}" value="${options.value}" maxlength="${options.maxLength}"${options.inputMode !== undefined && html` inputmode="${options.inputMode}"`}${options.autocomplete !== undefined && html` autocomplete="${options.autocomplete}"`}>
-${options.hint !== null && html`<br>${options.hint}`}
-${options.error !== null && html`<br><strong>${options.error}</strong>`}
-</p>`;
+  const plain = options.inputMode === 'url' || options.type === 'password';
+  return html`<div class="field">
+<label for="${id}">${options.label}</label>
+<input class="input" id="${id}" name="${options.name}" type="${options.type ?? 'text'}" value="${options.value}" maxlength="${options.maxLength}"${options.inputMode !== undefined && html` inputmode="${options.inputMode}"`}${options.autocomplete !== undefined && html` autocomplete="${options.autocomplete}"`}${plain && html` autocapitalize="off" autocorrect="off" spellcheck="false"`}${options.error !== null && html` aria-invalid="true"`}${describedBy(id, options.hint, options.error)}>
+${fieldNotes(id, options.hint, options.error)}
+</div>`;
 }
 
 export function textArea(options: {
@@ -122,12 +136,11 @@ export function textArea(options: {
   maxLength: number;
 }): Html {
   const id = `field-${options.name}`;
-  return html`<p>
-<label for="${id}">${options.label}</label><br>
-<textarea id="${id}" name="${options.name}" maxlength="${options.maxLength}">${options.value}</textarea>
-${options.hint !== null && html`<br>${options.hint}`}
-${options.error !== null && html`<br><strong>${options.error}</strong>`}
-</p>`;
+  return html`<div class="field">
+<label for="${id}">${options.label}</label>
+<textarea class="input" id="${id}" name="${options.name}" rows="4" maxlength="${options.maxLength}"${options.error !== null && html` aria-invalid="true"`}${describedBy(id, options.hint, options.error)}>${options.value}</textarea>
+${fieldNotes(id, options.hint, options.error)}
+</div>`;
 }
 
 export function confirmPanel(options: {
@@ -137,8 +150,8 @@ export function confirmPanel(options: {
   cancelHref: string;
   cancelLabel: string;
 }): Html {
-  return html`<div>
-${options.text !== null && html`<p>${options.text}</p>`}
+  return html`<div class="confirm">
+${options.text !== null && html`<p class="confirm-text">${options.text}</p>`}
 ${postButton(options.action, options.confirmLabel, 'danger')}
 ${secondaryLink(options.cancelHref, options.cancelLabel)}
 </div>`;
