@@ -30,7 +30,8 @@ Portainer.
 
 La plupart des membres ne savent pas se servir d'un courriel ni de Google Docs. **Chaque décision de
 code et d'interface passe ce test : quelqu'un qui n'a jamais utilisé d'app y arrive seul, du premier
-coup, sur son téléphone.** Les règles concrètes sont au §8. En résumé :
+coup, sur son téléphone.** Ce téléphone est **presque toujours un iPhone**, dans Safari : c'est la
+cible de référence de chaque vérification. Les règles concrètes sont au §8. En résumé :
 
 - Une seule chose à faire par écran, dite en mots simples, au tutoiement.
 - De gros boutons avec du texte écrit dessus. Jamais une icône seule, jamais un geste caché
@@ -531,6 +532,15 @@ Le secret, partout :
     (marges, ou grid), pas de `dvh`, pas de `:has()`, pas d'`aspect-ratio`, pas de `clamp()`, pas
     d'`inset`.
 12. **Aucun JavaScript** (§2) : tout est lien ou formulaire.
+13. **iPhone d'abord** :
+    - largeurs de référence 320, 375 et 390 px, en portrait ;
+    - la taille du texte suit le réglage *Taille du texte* de l'iPhone (beaucoup de gens l'ont
+      grossie) : `font: -apple-system-body` sur `html`, toutes les tailles en `rem`, de façon qu'à
+      la taille par défaut d'iOS le texte courant fasse environ 20 px (§8.1). L'app reste
+      utilisable même avec la plus grande taille de texte ;
+    - `<meta name="apple-mobile-web-app-title" content="Cadeaux">` (nom sous l'icône si on ajoute
+      l'app à l'écran d'accueil) et `<meta name="format-detection" content="telephone=no">` (iOS
+      transformerait un numéro de modèle en lien d'appel, sur lequel on appuierait par erreur).
 
 ## 9. Textes communs figés
 
@@ -555,8 +565,10 @@ Les longueurs se comptent avec `.length`, après `formText`. Les mêmes limites 
 | `details` | facultatif (vide → `null`), 1000 caractères au maximum | « C'est un peu long : 1000 caractères au maximum. » |
 | `url` | facultatif (vide → `null`), voir ci-dessous | « Ce lien ne semble pas valide. Vérifie-le, ou laisse la case vide. » |
 
-Adresse d'un lien : si elle ne commence pas par `http://` ou `https://` (majuscules ou non), on
-ajoute `https://` devant. Elle doit ensuite se lire avec `new URL()`, avoir le protocole `http:` ou
+Adresse d'un lien : si le texte contient quelque part une adresse qui commence par `http://` ou
+`https://` (majuscules ou non), on ne garde que la première, jusqu'au premier espace — le bouton
+*Partager › Copier* d'une app iPhone colle souvent une phrase avec le lien dedans. Sinon, si le
+texte ne commence pas par `http://` ou `https://`, on ajoute `https://` devant. Elle doit ensuite se lire avec `new URL()`, avoir le protocole `http:` ou
 `https:`, un nom d'hôte qui contient un point, et 2000 caractères au maximum. On enregistre
 `url.href`.
 
@@ -693,10 +705,10 @@ derrière son adresse publique en HTTPS.
 7. Mode aide : ajouter un souhait sur la liste d'un autre membre ; ce membre le voit comme le sien
    et peut le modifier.
 8. Retirer un membre de test → son appareil revient sur « Qui es-tu ? ».
-9. Sur un vieil appareil de la famille, s'il y en a un (vieil iPad, vieux téléphone Android) : tout
-   s'affiche et tout marche.
-10. Zoom à deux doigts permis ; affichage correct à 320 px de large ; lecture d'une page avec
-    VoiceOver.
+9. Sur le plus vieil iPhone de la famille : tout s'affiche et tout marche.
+10. Zoom à deux doigts permis ; affichage correct à 320 px de large ; *Réglages › Luminosité et
+    affichage › Taille du texte* au maximum : le texte grossit et tout reste utilisable ; lecture
+    d'une page avec VoiceOver.
 11. En-têtes d'une réponse : `X-Robots-Tag`, CSP, aucune erreur CSP dans la console du navigateur.
 12. Portainer : *Re-pull image* puis *Redeploy* → listes intactes, tout le monde reste identifié.
 13. Le lendemain : la copie de `app.db` figure dans la sauvegarde hors site.
@@ -720,11 +732,11 @@ public. Rien de tout ça n'est écrit par une tâche.
 
 | Tâche | État | Commit de fusion |
 |---|---|---|
-| T1 | à faire | — |
-| T2 | à faire | — |
-| T3 | à faire | — |
-| T4 | à faire | — |
-| T5 | à faire | — |
-| T6 | à faire | — |
+| T1 | fusionnée | `5265d80` |
+| T2 | en cours | — |
+| T3 | en cours | — |
+| T4 | en cours | — |
+| T5 | en cours | — |
+| T6 | fichiers écrits ; vérification Docker en cours ; fusion après T2 | — |
 | Déploiement | à faire | — |
 | Recette | à faire | — |

@@ -15,7 +15,8 @@ tâches ne font qu'assembler tes composants : si un bouton est trop petit ou un 
 c'est sur tous les écrans à la fois.
 
 Le public : une dizaine de personnes de tous âges, la plupart très peu à l'aise avec la technologie,
-sur des téléphones et des tablettes parfois anciens. Pense « gros, clair, évident, calme » plutôt
+**presque toutes sur iPhone** (Safari), parfois ancien, souvent avec une taille de texte grossie dans
+les réglages. Pense « gros, clair, évident, calme » plutôt
 que « joli et moderne ». Une touche chaleureuse de fête est bienvenue, jamais au détriment de la
 lisibilité.
 
@@ -75,8 +76,15 @@ texte/fond** et liste-les dans ton rapport final : texte courant ≥ 7:1, tout l
 
 Le §8 du plan s'applique en entier. En pratique :
 
-- `body` : `font-size: 20px`, `line-height: 1.5`, `-webkit-text-size-adjust: 100%`, marges internes
-  qui respectent `env(safe-area-inset-left/right/bottom)`.
+- Taille du texte qui suit le réglage de l'iPhone (§8.13) : sur `html`, `font-size: 17px` (valeur
+  des autres navigateurs), puis, dans `@supports (-webkit-touch-callout: none) { … }` (propriété
+  qui n'existe que sur iOS), `font: -apple-system-body` (taille choisie dans iOS, 17 px par défaut).
+  Sans ce `@supports`, Safari sur Mac appliquerait sa propre valeur de 13 px ; sur `body`, la police système du §1 et `font-size: 1.1765rem` (20 px à la
+  taille par défaut) ; **toutes** les autres tailles, marges, hauteurs de boutons et largeurs de
+  tuiles en `rem`, pour qu'elles grandissent avec le texte. Les champs de saisie ne descendent
+  jamais sous 16 px, même à la plus petite taille d'iOS (sinon Safari zoome à la saisie).
+- `body` : `line-height: 1.5`, `-webkit-text-size-adjust: 100%`, marges internes qui respectent
+  `env(safe-area-inset-left/right/bottom)`.
 - Conteneur central : une colonne, `max-width: 640px`, centré, marge latérale de 16 px. Parfait à
   320 px de large.
 - `<h1>` autour de 30 px, `<h2>` autour de 24 px, gras, bien espacés.
@@ -100,7 +108,8 @@ Le §8 du plan s'applique en entier. En pratique :
   `<link rel="stylesheet" href="/styles.css">`, `<link rel="icon" href="/icons/icon-32.png"
   type="image/png">`, `<link rel="apple-touch-icon" href="/icons/icon-180.png">`,
   `<link rel="manifest" href="/manifest.webmanifest">`, `<meta name="theme-color" content="…">`
-  accordé à l'en-tête.
+  accordé à l'en-tête, `<meta name="apple-mobile-web-app-title" content="Cadeaux">` et
+  `<meta name="format-detection" content="telephone=no">` (§8.13).
 - `<body>` : en-tête « 🎁 Cadeaux de la famille » (lien vers `/`), puis `<main>` avec le bouton
   Retour (« ← {libellé} », style `secondaryLink`, en haut), le `<h1>`, la bannière, le corps ; puis
   le pied de page du §9.4 quand un membre est choisi.
@@ -119,7 +128,8 @@ Chaque composant du tableau du §6.7, avec ces précisions :
   majuscule (premier caractère du prénom) ; prénom en 20 px gras, qui passe à la ligne s'il est
   long (jamais tronqué) ; légende en dessous, plus petite mais contrastée.
 - `memberGrid` : deux colonnes sur téléphone, trois à partir d'environ 560 px, tuiles de même
-  hauteur.
+  hauteur ; une seule colonne quand le texte est très grossi (largeur minimale de tuile en `rem`,
+  par exemple `repeat(auto-fill, minmax(8.5rem, 1fr))`).
 - `actionRow` : grid à parts égales, pas flexbox avec `gap`.
 - `form` : le bouton d'envoi est un gros bouton principal ; « Annuler » est un `secondaryLink` sous
   lui.
@@ -149,7 +159,9 @@ composant dans chacun de ses états** : boutons des trois variantes, tuiles avec
 très longs, carte avec et sans précisions, lien, auteur et actions, carte ciblée par `:target`,
 section, trois bannières, état vide, formulaire avec et sans erreurs, panneau de confirmation, page
 complète avec et sans bouton Retour et pied de page. Ouvre-la avec le serveur de développement de T1
-et vérifie-la à 320 px, 390 px et 1024 px de large. **Ne committe jamais `_galerie.html`.**
+et vérifie-la à 320 px, 375 px, 390 px et 1024 px de large, puis avec une taille de texte doublée
+(forcer temporairement `html { font-size: 34px }` dans ta copie de travail, pour simuler la plus
+grande taille de texte d'iOS, sans le committer). **Ne committe jamais `_galerie.html`.**
 
 ## Critères d'acceptation
 
@@ -158,13 +170,16 @@ et vérifie-la à 320 px, 390 px et 1024 px de large. **Ne committe jamais `_gal
 2. Galerie à 320 px : rien ne déborde horizontalement, aucun texte coupé, toutes les cibles
    tactiles font au moins 56 px de haut (boutons) ou 44 px (liens de texte).
 3. Galerie à 1024 px : colonne centrée d'environ 640 px, tuiles sur trois colonnes.
-4. Zoom du navigateur à 200 % : tout reste lisible et utilisable, sans défilement horizontal.
+4. Zoom du navigateur à 200 %, puis taille de texte doublée (§7) : tout reste lisible et
+   utilisable, sans défilement horizontal ; les tuiles passent sur une colonne.
 5. Console du navigateur : aucune erreur CSP.
 6. `grep` dans `public/styles.css` : aucune des propriétés interdites du §1 ; `grep -ri "<script\|style=" src/views/`
    ne trouve rien.
 7. Liste des contrastes calculés dans le rapport : texte courant ≥ 7:1, le reste ≥ 4,5:1, initiales
    des huit couleurs de membres comprises.
-8. Les champs de saisie sont en 20 px (pas de zoom automatique d'iOS à la saisie).
+8. Les champs de saisie sont en 20 px à la taille par défaut, et jamais sous 16 px (pas de zoom
+   automatique d'iOS à la saisie) ; aucune taille en `px` dans le CSS hors des exceptions du §3
+   (repli de `html`, bordures).
 9. `manifest.webmanifest` est un JSON valide, et les cinq fichiers d'icônes existent aux bonnes
    tailles.
 10. Si tu as un moyen de tester un vrai Safari iOS (simulateur ou appareil) : fais-le et dis ce que
