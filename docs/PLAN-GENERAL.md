@@ -737,9 +737,9 @@ public. Rien de tout ça n'est écrit par une tâche.
 |---|---|---|
 | T1 | fusionnée | `5265d80` |
 | T2 | en cours | — |
-| T3 | en cours | — |
-| T4 | en cours | — |
-| T5 | en cours | — |
-| T6 | fichiers écrits ; vérification Docker en cours ; fusion après T2 | — |
+| T3 | fusionnée | `c69ed69` |
+| T4 | fusionnée | `126eb3c` |
+| T5 | fusionnée | `cce77a4` |
+| T6 | vérifiée (critères Docker OK) ; fusion après T2 | — |
 | Déploiement | à faire | — |
 | Recette | à faire | — |
