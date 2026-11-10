@@ -55,6 +55,8 @@ Le schéma de la base s'applique tout seul au démarrage et les données restent
 ## 5. Premier lancement
 
 1. Ouvre `/admin` (par exemple `https://cadeaux.exemple.com/admin`) et entre `ADMIN_PASSWORD`.
+   Le mode aide ne marche que par l'adresse publique en HTTPS, pas par l'adresse locale du serveur
+   en HTTP : son cookie n'est accepté par le navigateur qu'en HTTPS.
 2. Ajoute les membres de la famille.
 3. Envoie le lien à la famille. Texto prêt à copier, en remplaçant l'adresse par la vraie :
 
