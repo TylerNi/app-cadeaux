@@ -4,7 +4,7 @@ Application web pour l'échange de cadeaux d'une famille : chacun appuie sur son
 de souhaits et consulte celle des autres. Une idée secrète ajoutée sur la liste de quelqu'un est vue
 par tous, sauf par la personne concernée. Un mode aide, à l'adresse `/admin`, gère les membres.
 
-Le domaine, le tunnel Cloudflare et le dataset TrueNAS ne sont pas configurés par le code : suis ta
+Le domaine et le tunnel Cloudflare ne sont pas configurés par le code : suis ta
 procédure habituelle pour les apps du serveur.
 
 ## 1. Données
@@ -38,7 +38,7 @@ Un paquet GHCR est **privé** par défaut, et Portainer ne pourra pas le tirer t
 
 Dans Portainer : la stack › **Pull and redeploy**, en cochant **Re-pull image**. C'est tout.
 
-Le schéma de la base s'applique tout seul au démarrage et les données restent dans le dataset :
+Le schéma de la base s'applique tout seul au démarrage et les données restent dans le dossier :
 **aucune étape manuelle**.
 
 ## 4. Premier lancement
