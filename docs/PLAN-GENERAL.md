@@ -732,11 +732,11 @@ public. Rien de tout ça n'est écrit par une tâche.
 
 | Tâche | État | Commit de fusion |
 |---|---|---|
-| T1 | à faire | — |
-| T2 | à faire | — |
-| T3 | à faire | — |
-| T4 | à faire | — |
-| T5 | à faire | — |
-| T6 | à faire | — |
+| T1 | fusionnée | `5265d80` |
+| T2 | en cours | — |
+| T3 | en cours | — |
+| T4 | en cours | — |
+| T5 | en cours | — |
+| T6 | fichiers écrits ; vérification Docker en cours ; fusion après T2 | — |
 | Déploiement | à faire | — |
 | Recette | à faire | — |
