@@ -1,6 +1,6 @@
 # T1 — Socle serveur, données et règles du secret
 
-**Modèle : Claude Opus 5.5 · Effort : high · Dépendances : aucune**
+**Modèle : Claude Opus 5.5 · Effort : xhigh · Dépendances : aucune**
 
 > **Lis `docs/PLAN-GENERAL.md` en entier avant de commencer.** Tu es la première tâche : T2, T3, T4
 > et T5 démarrent dès que tu es fusionnée, toutes en même temps, en s'appuyant uniquement sur ce que

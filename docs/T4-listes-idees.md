@@ -1,6 +1,6 @@
 # T4 — Listes, souhaits et idées secrètes
 
-**Modèle : Claude Opus 5.5 · Effort : high · Dépendances : T1**
+**Modèle : Claude Opus 5.5 · Effort : xhigh · Dépendances : T1**
 
 > **Lis `docs/PLAN-GENERAL.md` en entier avant de commencer**, et relis le §7 (le secret) deux fois.
 > T1 doit être fusionnée. Tu travailles en même temps que T2, T3 et T5 : tu construis tes pages avec

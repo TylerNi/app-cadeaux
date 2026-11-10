@@ -1,6 +1,6 @@
 # T2 — Design et composants d'interface
 
-**Modèle : Claude Opus 5.5 · Effort : high · Dépendances : T1**
+**Modèle : Claude Opus 5.5 · Effort : xhigh · Dépendances : T1**
 
 > **Lis `docs/PLAN-GENERAL.md` en entier avant de commencer**, en particulier les §1 (le critère
 > n° 1), §6.7 (tes signatures) et §8 (ergonomie). T1 doit être fusionnée : tu pars de sa version

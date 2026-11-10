@@ -1,6 +1,6 @@
 # T5 — Mode aide
 
-**Modèle : Claude Sonnet 5.5 · Effort : medium · Dépendances : T1**
+**Modèle : Claude Opus 5.5 · Effort : xhigh · Dépendances : T1**
 
 > **Lis `docs/PLAN-GENERAL.md` en entier avant de commencer.** T1 doit être fusionnée. Tu travailles
 > en même temps que T2, T3 et T4 : tu construis tes pages avec les composants de `views/ui.ts` tels

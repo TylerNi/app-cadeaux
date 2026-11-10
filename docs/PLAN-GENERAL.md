@@ -614,12 +614,15 @@ ajoute `https://` devant. Elle doit ensuite se lire avec `new URL()`, avoir le p
 
 | Tâche | Fiche | Dépend de | Modèle · effort |
 |---|---|---|---|
-| **T1** Socle serveur, données et règles du secret | `docs/T1-socle-serveur.md` | — | Opus 5.5 · high |
-| **T2** Design et composants d'interface | `docs/T2-design-interface.md` | T1 | Opus 5.5 · high |
-| **T3** « Qui es-tu ? » et accueil | `docs/T3-identite-accueil.md` | T1 | Sonnet 5.5 · medium |
-| **T4** Listes, souhaits et idées secrètes | `docs/T4-listes-idees.md` | T1 | Opus 5.5 · high |
-| **T5** Mode aide | `docs/T5-mode-aide.md` | T1 | Sonnet 5.5 · medium |
-| **T6** Docker, Portainer et CI | `docs/T6-docker-deploiement.md` | — (build vérifié après T1) | Sonnet 5.5 · medium |
+| **T1** Socle serveur, données et règles du secret | `docs/T1-socle-serveur.md` | — | Opus 5.5 · xhigh |
+| **T2** Design et composants d'interface | `docs/T2-design-interface.md` | T1 | Opus 5.5 · xhigh |
+| **T3** « Qui es-tu ? » et accueil | `docs/T3-identite-accueil.md` | T1 | Opus 5.5 · xhigh |
+| **T4** Listes, souhaits et idées secrètes | `docs/T4-listes-idees.md` | T1 | Opus 5.5 · xhigh |
+| **T5** Mode aide | `docs/T5-mode-aide.md` | T1 | Opus 5.5 · xhigh |
+| **T6** Docker, Portainer et CI | `docs/T6-docker-deploiement.md` | — (build vérifié après T1) | Opus 5.5 · xhigh |
+
+Toutes les tâches tournent en Opus 5.5, effort xhigh, un sous-agent par tâche (demande de Tyler du
+2026-11-10).
 
 Ordre : **T1** et **T6** en parallèle → dès que T1 est fusionnée, **T2**, **T3**, **T4** et **T5**
 en parallèle → recette finale (§13).

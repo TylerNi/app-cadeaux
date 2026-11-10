@@ -1,11 +1,11 @@
 # T6 — Docker, Portainer et CI
 
-**Modèle : Claude Sonnet 5.5 · Effort : medium · Dépendances : aucune pour écrire, T1 pour vérifier**
+**Modèle : Claude Opus 5.5 · Effort : xhigh · Dépendances : aucune pour écrire, T1 pour vérifier**
 
 > **Lis `docs/PLAN-GENERAL.md` en entier avant de commencer**, en particulier les §2 (hébergement),
 > §5 (variables) et §12 (pièges 7 et 8). Tu démarres en même temps que T1 : écris tes fichiers tout
-> de suite, puis vérifie la construction de l'image dès que T1 est fusionnée dans `main` (rebase ta
-> branche dessus).
+> de suite, puis vérifie la construction de l'image dès que T1 est fusionnée dans `main` (fusionne
+> `main` dans ta branche avec `git merge main`, sans rebase).
 
 ## Mission
 
@@ -118,7 +118,7 @@ README le dit en une phrase et renvoie Tyler à sa propre procédure.
 
 ## Critères d'acceptation
 
-Une fois T1 fusionnée et ta branche rebasée dessus :
+Une fois T1 fusionnée et `main` fusionnée dans ta branche :
 
 1. `docker build -t app-cadeaux:test .` réussit.
 2. `docker run -d --init --name cadeaux-test -p 8090:8080 -e ADMIN_PASSWORD=test -e SESSION_SECRET=test -v <dossier temporaire>:/data app-cadeaux:test`
