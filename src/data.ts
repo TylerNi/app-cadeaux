@@ -22,7 +22,6 @@ const ITEM_SELECT = `
 
 const listMembersStmt = db.prepare('SELECT id, name FROM members');
 const getMemberStmt = db.prepare('SELECT id, name FROM members WHERE id = ?');
-const nameTakenStmt = db.prepare('SELECT 1 FROM members WHERE name = ? AND id IS NOT ?');
 const createMemberStmt = db.prepare('INSERT INTO members (name, created_at) VALUES (?, ?)');
 const renameMemberStmt = db.prepare('UPDATE members SET name = ? WHERE id = ?');
 const deleteMemberStmt = db.prepare('DELETE FROM members WHERE id = ?');
@@ -70,7 +69,9 @@ export function getMember(id: number): Member | null {
 }
 
 export function isNameTaken(name: string, exceptId?: number): boolean {
-  return nameTakenStmt.get(name, exceptId ?? null) !== undefined;
+  return listMembers().some(
+    (member) => member.id !== exceptId && member.name.localeCompare(name, 'fr', { sensitivity: 'accent' }) === 0,
+  );
 }
 
 export function createMember(name: string): Member {

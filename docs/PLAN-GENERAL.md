@@ -262,7 +262,10 @@ export function deleteItem(id: number): void;
 - `listMembers` trie par prénom dans l'ordre français, sans tenir compte des majuscules ni des
   accents (`a.name.localeCompare(b.name, 'fr', { sensitivity: 'base' })`) : chacun doit trouver son
   nom là où il l'attend.
-- `isNameTaken` compare sans tenir compte des majuscules (la colonne est `COLLATE NOCASE`).
+- `isNameTaken` compare sans tenir compte des majuscules, accentuées comprises
+  (`localeCompare(…, 'fr', { sensitivity: 'accent' })` : « émile » = « Émile », mais « Emile » ≠
+  « Émile ») ; le `COLLATE NOCASE` de la colonne ne replie que les lettres sans accent et ne sert
+  que de dernier filet.
 - `countWishesByMember` ne compte **que** les souhaits. Un membre sans souhait est absent de la `Map`.
 - `listWishes` et `listIdeas` : du plus récent au plus ancien (`created_at DESC, id DESC`), avec
   `authorName` joint depuis `members`.
