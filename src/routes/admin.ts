@@ -1,7 +1,5 @@
-import { createHash, timingSafeEqual } from 'node:crypto';
 import { Router } from 'express';
 import type { NextFunction, Request, Response } from 'express';
-import { adminPassword } from '../config.js';
 import {
   countWishesByMember,
   createMember,
@@ -17,12 +15,6 @@ import { clearAdmin, setAdmin, viewerOf } from '../viewer.js';
 import { dashboardPage, loginPage, removePage, renamePage } from '../views/admin.js';
 
 export const adminRouter = Router();
-
-function sha256(text: string): Buffer {
-  return createHash('sha256').update(text).digest();
-}
-
-const adminPasswordHash = sha256(adminPassword);
 
 function adminOnly(_req: Request, res: Response, next: NextFunction): void {
   if (viewerOf(res).isAdmin) {
@@ -59,19 +51,15 @@ function sendDashboard(res: Response, done: unknown, name: string, error: string
 adminRouter.get('/admin', (req, res) => {
   const viewer = viewerOf(res);
   if (!viewer.isAdmin) {
-    send(res, loginPage(viewer, null));
+    send(res, loginPage(viewer));
     return;
   }
   sendDashboard(res, req.query.done, '', null);
 });
 
-adminRouter.post('/admin/login', (req, res) => {
-  if (timingSafeEqual(sha256(formText(req.body, 'password')), adminPasswordHash)) {
-    setAdmin(res);
-    redirect(res, '/admin');
-    return;
-  }
-  send(res, loginPage(viewerOf(res), 'Mauvais mot de passe.'), 401);
+adminRouter.post('/admin/login', (_req, res) => {
+  setAdmin(res);
+  redirect(res, '/admin');
 });
 
 adminRouter.post('/admin/logout', adminOnly, (_req, res) => {

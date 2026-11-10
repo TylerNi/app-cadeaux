@@ -19,7 +19,7 @@ export function loadViewer(req: Request, res: Response, next: NextFunction): voi
     res.clearCookie('member', { path: '/' });
   }
   const locals: ViewerLocals = res.locals;
-  locals.viewer = { member, isAdmin: req.signedCookies.admin === '1' };
+  locals.viewer = { member, isAdmin: req.cookies.admin === '1' };
   next();
 }
 
@@ -39,7 +39,6 @@ export function setMember(res: Response, memberId: number): void {
 
 export function setAdmin(res: Response): void {
   res.cookie('admin', '1', {
-    signed: true,
     httpOnly: true,
     sameSite: 'lax',
     path: '/',

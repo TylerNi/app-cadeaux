@@ -22,3 +22,10 @@
 Compris par l'agent principal comme : un appareil = une personne, sans lien pour changer de nom ;
 quelqu'un sans appareil à lui, c'est Tyler qui remplit sa liste en mode aide. Le dépôt GitHub est
 public.
+
+## Précisions (2026-11-10, déploiement)
+
+> je veux pas de secret. c une app light on s en fou
+
+Compris par l'agent principal comme : aucun secret à fournir au déploiement, ni `ADMIN_PASSWORD`
+ni `SESSION_SECRET`. Le mode aide s'ouvre sans mot de passe, en tapant `/admin` puis « Entrer ».

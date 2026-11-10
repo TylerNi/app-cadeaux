@@ -23,25 +23,11 @@ function wishCaption(count: number): string {
   return `${count} souhaits`;
 }
 
-export function loginPage(viewer: Viewer, error: string | null): Html {
+export function loginPage(viewer: Viewer): Html {
   return page({
     title: 'Mode aide',
     viewer,
-    body: form({
-      action: '/admin/login',
-      submitLabel: 'Entrer',
-      cancelHref: null,
-      fields: textField({
-        name: 'password',
-        label: 'Mot de passe',
-        hint: null,
-        value: '',
-        error,
-        maxLength: 200,
-        type: 'password',
-        autocomplete: 'current-password',
-      }),
-    }),
+    body: postButton('/admin/login', 'Entrer', 'primary'),
   });
 }
 

@@ -2,7 +2,7 @@ import cookieParser from 'cookie-parser';
 import express from 'express';
 import type { NextFunction, Request, Response } from 'express';
 import path from 'node:path';
-import { port, sessionSecret } from './config.js';
+import { port } from './config.js';
 import { notFound, redirect, send } from './http.js';
 import { adminRouter } from './routes/admin.js';
 import { homeRouter } from './routes/home.js';
@@ -32,7 +32,7 @@ app.get('/health', (_req, res) => {
 });
 
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser(sessionSecret));
+app.use(cookieParser());
 app.use(loadViewer);
 
 app.use((req, res, next) => {
