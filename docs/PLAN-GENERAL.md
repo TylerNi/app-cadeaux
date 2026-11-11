@@ -321,7 +321,7 @@ avec le statut 500 et un `console.error`.
 
 | Cookie | Contenu | Attributs |
 |---|---|---|
-| `member` | identifiant du membre choisi | `HttpOnly`, `SameSite=Lax`, `Path=/`, `Max-Age` de 400 jours (le maximum accepté par Chrome), **renouvelé à chaque visite** |
+| `member` | identifiant du membre choisi | `HttpOnly`, `Path=/`, `Max-Age` de 400 jours (le maximum accepté par Chrome), **renouvelé à chaque visite** ; **sans `SameSite`** : iOS peut retenir un cookie `SameSite=Lax` au lancement d'une app de l'écran d'accueil, ce qui ramenait à « Qui es-tu ? » à chaque ouverture |
 | `admin` | `1` | `HttpOnly`, `SameSite=Lax`, `Path=/`, `Max-Age` de 400 jours, plus `Secure` si `NODE_ENV=production` |
 
 ```ts

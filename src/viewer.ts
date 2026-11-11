@@ -31,7 +31,6 @@ export function viewerOf(res: Response): Viewer {
 export function setMember(res: Response, memberId: number): void {
   res.cookie('member', String(memberId), {
     httpOnly: true,
-    sameSite: 'lax',
     path: '/',
     maxAge: MAX_AGE,
   });
